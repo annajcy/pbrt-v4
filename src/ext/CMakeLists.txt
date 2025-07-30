@@ -22,6 +22,12 @@ set (FILESYSTEM_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/filesystem PARENT_SCOPE)
 
 add_subdirectory (libdeflate)
 
+if (MSVC)
+  target_compile_options(deflate PRIVATE /FIintrin.h)
+else()
+  target_compile_options(deflate PRIVATE -include intrin.h)
+endif()
+
 set (LIBDEFLATE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/libdeflate PARENT_SCOPE)
 set (LIBDEFLATE_LIBRARIES deflate::deflate PARENT_SCOPE)
 
